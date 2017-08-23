@@ -15,5 +15,13 @@ As a very general idea, what it happens when we run a program is:
 2. The .class file is also loaded in memory.
 3. The JVM interprets the bytecode from the file.
 
+This is a diagram of the JVM:
+
 ### JIT
 When the JVM detects that a piece of code is executed very frequently, it does the Just In Time execution. This means that JVM converts that bytecode into optimized **machine code**. This is also called dynamic compilation.
+
+---
+**Note:** From now on, all the descriptions will happen in Runtime. The input of the JVM is the compiled program.
+
+#  Lifetime of a type
+We call type to any class or interface. Lifetime of a type refers to the process of loading a class file into the JVM and ready for execution.
