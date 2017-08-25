@@ -63,7 +63,28 @@ When is a **Class** loaded for first time?:
 
 When is a **Interface** loaded for first time?: Same as before, but obviously the first case (new instance) is impossible in instances.
 
-The output of the classloading proccess is the class object, which is used by JVM every time it needs to create a new instance. It just contains meta info of the **Class, Interface, Primitive, Void or Array**.
+The output of the classloading proccess is the class object, which is used by JVM every time it needs to create a new instance. It just contains meta-info of the **Class, Interface, Primitive, Void or Array**.
+
+## Linking (verification, preparation, resolution)
+
+### Verification
+- Check that the bytecode of the loaded class is safe and well formed.
+- Follows the Java rules: final classes can not be subclassed, no illegal method overloading...
+
+### Preparation
+- It allocate space for static fields and initialize them with default values. If there is not space available it throws an OutOfMemoryError.
+- If the class is not only loaded but also initialized, then it also initializes the instance fields (attributes) of the class after the static ones.
+
+## Resolution
+It is the process of replacing symbolic references with direct references to memory.
+When the classloader generates a class object, it keeps all the references from our class to external classes as **symbolic references** or logic references. They are stored inside the **class object** in a place called **constant pool**.
+
+
+
+
+
+
+
 
 
 # resources
