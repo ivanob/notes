@@ -40,6 +40,31 @@ NOTES:
 - Before loading and initializing a class, we load first all his **superclasses**
 - If the type is an **interface**, it will be loaded but not initialized. From Java8, as interfaces can have static methods, it is also loaded in case it contains one static method or a field that is accessed via static method.
 
+## ClassLoader
+[Pic class loader]
+
+- The first step that the classloader does, is check on the heap if the class object already exists.
+- If it doesnt exists it tries to find the .class file following the parent delegation model.
+- If its found, it creates the class object. Otherwise, a ClassNotFoundException is thrown.
+
+Parent delegation model: When the classloader needs to find the file it looks in several repositories starting from the most reliable first. If it doesn't find the file in the first one it checks in the next one, and so on. The last repositories are not trustworthy at all and can contain malicious classes. These are the repositories:
+1. Bootstrap class loader: load all the core classes
+2. Extension C.L: load classes from the extension API
+3. Application C.L: load classes from the developer
+4. User-Defined C.L: custom classloaders written in Java by other developers
+
+When is a **Class** loaded for first time?:
+- New instance of that class is created.
+- One of its static methods is accessed.
+- One of its static fields is accessed, except for compile-time constants because these values are replaced by compiler during compilation.
+- If one of its subclasses is loaded.
+- If the class is loaded from command-line.
+- The class is accessed via reflection.
+
+When is a **Interface** loaded for first time?: Same as before, but obviously the first case (new instance) is impossible in instances.
+
+The output of the classloading proccess is the class object, which is used by JVM every time it needs to create a new instance. It just contains meta info of the **Class, Interface, Primitive, Void or Array**.
+
 
 # resources
 - http://www.artima.com/insidejvm/ed2/
