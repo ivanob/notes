@@ -90,7 +90,19 @@ While resolving references, the resolutor checks that the current class has perm
 ## INITIALIZATION
 Initialize the static fields with the values the user defined, replacing the default ones. Interfaces are only initialized if they have static methods (> Java8) or one of its variables (non compile-time) are accessed.
 
+# Reflection
+Reflection is a technique what allows us to:
+- Introspect: know about the meta-information of a class **in runtime**. Just we need to know its name to access all its methods, signatures, attributes...
+- Affect runtime behavior: create instances of that class, call its methods and set or get values of that instances. Again, all this is done in runtime, not in the source code. This means the user could just write the name of a class and the program would introspect that class in real time.
 
+Simplifying, reflection is nothing but accessing to the class object in our code. There are 3 ways to access the class object:
+1. Using an object instance. For example: myObj.getClass()
+2. Using the static forName method of the class Class. Example: Class.forName("java.lang.String"). IMPORTANT: It doesn't work with primitives.
+3. Using class literals. It works with classes, interfaces, arrays and primitives. Example: String.class, boolean.class, void.class...
+
+It is also possible to access to the class object using the boxed type primitives: Boolean.TYPE == boolean.class
+
+Reflection is used in several scenarios. For example, the IDE uses it to autocomplete a text when we write the name of the class and press '.'. It is used as well to process annotations, for example in JUnit it tuns the tests that start by "test..."
 
 
 
