@@ -30,7 +30,7 @@ We call type to any class or interface. Lifetime of a type refers to the process
 
 ## Overview
 First of all, the JVM checks if the class is already loaded in memory. If not, it needs to load it so it follows this process:
-1. Load the class into memory using the classloader and generates the **class object**.
+1. Load the class into memory using the classloader and generates the **class object**. Class objects live in the method area.
 2. VERIFICATION: Checks if the class is well formed or not (follow the rules of Java) as a security check.
 3. PREPARATION: Allocate space for the static variables (and initialize them with default values)
 4. RESOLUTION: Load referenced classes: Load the classes that are referenced in Hello.class. To do that, they follow the same process (dynamic linking).
@@ -77,9 +77,13 @@ The output of the classloading proccess is the class object, which is used by JV
 
 ## Resolution
 It is the process of replacing symbolic references with direct references to memory.
-When the classloader generates a class object, it keeps all the references from our class to external classes as **symbolic references** or logic references. They are stored inside the **class object** in a place called **constant pool**.
+When the classloader generates a class object, it keeps all the references from our class to external classes as **symbolic references** or logic references. They are stored inside the **class object** in a place called **constant pool**. Constant pool also contains String literals and compile-time constants of that class.
+- The resoluter goes through all the constant pool and it resolves each symbolic reference. To do that, if the class referenced is not in heap already it loads it starting a new lifetime of that type.
+- Once its loaded, the resolutor replaces the symbolic link with the direct reference. This direct reference is a reference to memory in the heap, where the real object referenced lives.
 
+Java uses the technic of dynamic linking -> The resolution of links is done in runtime. The advantage of this is that programs are easier to update, as every time I load a class into memory, it will reload all the references of it. there is no need to recompile. We can update our program just replacing the updated class in the classpath with the new version.
 
+On the other hand, static linking occurs during compilation. The code of the referenced file is copied into the final executable during the compilation time.
 
 
 
@@ -91,4 +95,4 @@ When the classloader generates a class object, it keeps all the references from 
 - http://www.artima.com/insidejvm/ed2/
 - https://www.pearson.com/us/higher-education/program/Hunt-Java-Performance/PGM182574.html#
 - https://www.codeproject.com/Articles/24029/Home-Made-Java-Virtual-Machine
--
+- https://stackoverflow.com/questions/13624462/where-does-class-object-reference-variable-get-stored-in-java-in-heap-or-stac
