@@ -40,7 +40,7 @@ NOTES:
 - Before loading and initializing a class, we load first all his **superclasses**
 - If the type is an **interface**, it will be loaded but not initialized. From Java8, as interfaces can have static methods, it is also loaded in case it contains one static method or a field that is accessed via static method.
 
-## ClassLoader
+## CLASSLOADER
 [Pic class loader]
 
 - The first step that the classloader does, is check on the heap if the class object already exists.
@@ -65,7 +65,7 @@ When is a **Interface** loaded for first time?: Same as before, but obviously th
 
 The output of the classloading proccess is the class object, which is used by JVM every time it needs to create a new instance. It just contains meta-info of the **Class, Interface, Primitive, Void or Array**.
 
-## Linking (verification, preparation, resolution)
+## LINKING (verification, preparation, resolution)
 
 ### Verification
 - Check that the bytecode of the loaded class is safe and well formed.
@@ -75,17 +75,20 @@ The output of the classloading proccess is the class object, which is used by JV
 - It allocate space for static fields and initialize them with default values. If there is not space available it throws an OutOfMemoryError.
 - If the class is not only loaded but also initialized, then it also initializes the instance fields (attributes) of the class after the static ones.
 
-## Resolution
+### Resolution
 It is the process of replacing symbolic references with direct references to memory.
 When the classloader generates a class object, it keeps all the references from our class to external classes as **symbolic references** or logic references. They are stored inside the **class object** in a place called **constant pool**. Constant pool also contains String literals and compile-time constants of that class.
 - The resoluter goes through all the constant pool and it resolves each symbolic reference. To do that, if the class referenced is not in heap already it loads it starting a new lifetime of that type.
 - Once its loaded, the resolutor replaces the symbolic link with the direct reference. This direct reference is a reference to memory in the heap, where the real object referenced lives.
 
-Java uses the technic of dynamic linking -> The resolution of links is done in runtime. The advantage of this is that programs are easier to update, as every time I load a class into memory, it will reload all the references of it. there is no need to recompile. We can update our program just replacing the updated class in the classpath with the new version.
+Java uses the technic of **dynamic linking**: The resolution of links is done in runtime. The advantage of this is that programs are easier to update, as every time I load a class into memory, it will reload all the references of it. there is no need to recompile. We can update our program just replacing the updated class in the classpath with the new version. There are 2 approaches to load references: eager loading and lazy loading.
 
-On the other hand, static linking occurs during compilation. The code of the referenced file is copied into the final executable during the compilation time.
+On the other hand, **static linking** occurs during compilation. The code of the referenced file is copied into the final executable during the compilation time.
 
+While resolving references, the resolutor checks that the current class has permission to the referenced class. It also checks that the fields really exists in the referenced class and their types are correct.
 
+## INITIALIZATION
+Initialize the static fields with the values the user defined, replacing the default ones. Interfaces are only initialized if they have static methods (> Java8) or one of its variables (non compile-time) are accessed.
 
 
 
