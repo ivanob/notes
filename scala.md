@@ -33,6 +33,7 @@ Facts:
 
 
 Notas about patternmatching en listas:
--El orden importa, va evaluando de primero a ultimo.
+- :: es el operador cons, SOLO DISPONIBLE CUANDO SE HACE PATTERN MATCHING CON LISTAS
+- El orden importa, va evaluando de primero a ultimo.
 - En el caso sencillo, tengo que poner x :: Nil porque sino traga todas las expresiones.
 - el nombre que le de a cada cosa es irrelevante. Si pongo x :: xs :: y => entonces x es el primer elemento, xs el segundo y y el resto.
